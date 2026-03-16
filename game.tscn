@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://cudt2shimar3v"]
+
+[ext_resource type="Script" uid="uid://djihue8v63387" path="res://character_body_3d.gd" id="1_80nbo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_80nbo"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_80nbo"]
+material = SubResource("StandardMaterial3D_80nbo")
+size = Vector3(1, 1.5, 2)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_e2o6t"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mwb40"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_80nbo"]
+sky_material = SubResource("ProceduralSkyMaterial_mwb40")
+
+[sub_resource type="Environment" id="Environment_e2o6t"]
+background_mode = 2
+sky = SubResource("Sky_80nbo")
+tonemap_mode = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_mwb40"]
+flip_faces = true
+size = Vector3(100, 100, 100)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_mwb40"]
+data = PackedVector3Array(50, 50, 50, -50, 50, 50, -50, -50, 50, 50, -50, 50, 50, 50, 50, -50, -50, 50, -50, 50, -50, 50, 50, -50, 50, -50, -50, -50, -50, -50, -50, 50, -50, 50, -50, -50, 50, 50, -50, 50, 50, 50, 50, -50, 50, 50, -50, -50, 50, 50, -50, 50, -50, 50, -50, 50, 50, -50, 50, -50, -50, -50, -50, -50, -50, 50, -50, 50, 50, -50, -50, -50, -50, 50, 50, 50, 50, 50, 50, 50, -50, -50, 50, -50, -50, 50, 50, 50, 50, -50, 50, -50, 50, -50, -50, 50, -50, -50, -50, 50, -50, -50, 50, -50, 50, -50, -50, -50)
+
+[node name="game" type="Node3D" unique_id=56785597]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=175611141]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.990242, 0)
+script = ExtResource("1_80nbo")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D" unique_id=707051729]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 2.335434, -3.760727)
+fov = 76.3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D" unique_id=1928543827]
+mesh = SubResource("BoxMesh_80nbo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=976619410]
+shape = SubResource("SphereShape3D_e2o6t")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1683889607]
+environment = SubResource("Environment_e2o6t")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=893221330]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=236090584]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.033688664, -0.041425228)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=368274301]
+mesh = SubResource("BoxMesh_mwb40")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1870263460]
+shape = SubResource("ConcavePolygonShape3D_mwb40")
