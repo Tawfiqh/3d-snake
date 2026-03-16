@@ -25,30 +25,6 @@ func _ready():
 func _process(_delta: float) -> void:
 	_update_mouse_mode()
 
-func generate_trail() -> void:
-	if not Game.moving: return
-
-	# Create a new trail segment at the current position
-	var trail_segment = trailScene.instantiate()
-	# var local_position = position #- (Vector3(0, 0, 1) * TRAIL_OFFSET)
-	# trail_segment.global_position = to_global(local_position)
-	trail_segment.scale = SNAKE_SCALE
-	trail_segment.position = position - global_transform.basis.z * TRAIL_OFFSET
-	trail_segment.rotation = rotation
-
-	# Add the trail segment to the trail array
-	get_parent().add_child(trail_segment)
-	trail_segments.append(trail_segment)
-
-	# Update the trail array - and remove any segments that are too old
-	if (trail_segments.size() > Game.trail_length):
-		var segment_to_remove: Node3D = trail_segments.pop_front()
-		segment_to_remove.hide()
-		segment_to_remove.queue_free()
-
-	pass
-
-
 # This is called on every physics tick
 func _physics_process(delta: float) -> void:
 	if not Game.moving: return
@@ -74,10 +50,44 @@ func _physics_process(delta: float) -> void:
 
 	if get_last_slide_collision():
 		Game.game_over()
+
+
+func _apply_local_steering(steer_input: Vector2, delta: float) -> void:
+	var pitch_amount := -steer_input.y * STEERING_POWER * delta
+	var yaw_amount := -steer_input.x * STEERING_POWER * delta
+	rotate_object_local(Vector3.RIGHT, pitch_amount)
+	rotate_object_local(Vector3.UP, yaw_amount)
+
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# Generating the trail
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+func generate_trail() -> void:
+	if not Game.moving: return
+
+	# Create a new trail segment at the current position
+	var trail_segment = trailScene.instantiate()
+	# var local_position = position #- (Vector3(0, 0, 1) * TRAIL_OFFSET)
+	# trail_segment.global_position = to_global(local_position)
+	trail_segment.scale = SNAKE_SCALE
+	trail_segment.position = position - global_transform.basis.z * TRAIL_OFFSET
+	trail_segment.rotation = rotation
+
+	# Add the trail segment to the trail array
+	get_parent().add_child(trail_segment)
+	trail_segments.append(trail_segment)
+
+	# Update the trail array - and remove any segments that are too old
+	if (trail_segments.size() > Game.trail_length):
+		var segment_to_remove: Node3D = trail_segments.pop_front()
+		segment_to_remove.hide()
+		segment_to_remove.queue_free()
+
+	pass
+
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 # Collision Detection
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
 
 func _on_tongue_body_entered(body: Node3D) -> void:
 	print("ouch!")
@@ -86,6 +96,10 @@ func _on_tongue_area_entered(body: Node3D) -> void:
 	print("ouch!")
 	Game.game_over()
 
+
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# Mouse inputs
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 func _capture_mouse_onload() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -105,10 +119,3 @@ func _unhandled_input(event: InputEvent) -> void:
 		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 			mouse_turn_input = event.relative * mouse_sensitivity
 			mouse_turn_input = mouse_turn_input.limit_length(1.0)
-
-
-func _apply_local_steering(steer_input: Vector2, delta: float) -> void:
-	var pitch_amount := -steer_input.y * STEERING_POWER * delta
-	var yaw_amount := -steer_input.x * STEERING_POWER * delta
-	rotate_object_local(Vector3.RIGHT, pitch_amount)
-	rotate_object_local(Vector3.UP, yaw_amount)
