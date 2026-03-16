@@ -26,4 +26,4 @@ func _physics_process(delta: float) -> void:
 func handle_collision(collision: KinematicCollision3D) -> void:
 	var collider = collision.get_collider()
 	print("Collision detected with: ", collision.get_collider().name)
-	
+	Game.game_over()
