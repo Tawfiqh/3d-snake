@@ -42,7 +42,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func spawn_fruit():
 	print("spawning fruit")
-	var fruit_pos = Vector3(randi_range(SPAWN_RADIUS, -SPAWN_RADIUS), randi_range(SPAWN_RADIUS, -SPAWN_RADIUS), randi_range(SPAWN_RADIUS, -SPAWN_RADIUS))
+	var fruit_pos = Vector3(randf_range(SPAWN_RADIUS, -SPAWN_RADIUS), randf_range(SPAWN_RADIUS, -SPAWN_RADIUS), randf_range(SPAWN_RADIUS, -SPAWN_RADIUS))
 	var new_fruit = fruit_scene.instantiate()
 	new_fruit.position = fruit_pos
 	get_tree().current_scene.add_child(new_fruit)

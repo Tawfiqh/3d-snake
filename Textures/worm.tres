@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://vdku2edh2ea4"]
+
+[resource]
+albedo_color = Color(0.96, 0.49919996, 0.81408, 1)
+metallic = 1.0
+subsurf_scatter_enabled = true
+subsurf_scatter_strength = 0.55
+subsurf_scatter_skin_mode = true
