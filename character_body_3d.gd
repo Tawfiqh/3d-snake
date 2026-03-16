@@ -5,11 +5,12 @@ class_name Player
 
 const SPEED = 5.0
 const STEERING_POWER = 2.0
-const TRAIL_REFRESH_RATE: int = 3
+const TRAIL_REFRESH_RATE: int = 1
 
 var frame_count: int = 0
 
 const TRAIL_OFFSET: float = 0.3
+var trail_segments = []
 
 func _ready():
 	print("player ready")
@@ -17,6 +18,7 @@ func _ready():
 
 func generate_trail() -> void:
 	if not Game.moving: return
+
 	# Create a new trail segment at the current position
 	var trail_segment = trailScene.instantiate()
 	# var local_position = position #- (Vector3(0, 0, 1) * TRAIL_OFFSET)
@@ -26,8 +28,13 @@ func generate_trail() -> void:
 
 	# Add the trail segment to the trail array
 	get_parent().add_child(trail_segment)
+	trail_segments.append(trail_segment)
 
 	# Update the trail array - and remove any segments that are too old
+	if(trail_segments.size() > Game.trail_length):
+		var segment_to_remove : Node3D = trail_segments.pop_front()
+		segment_to_remove.hide()
+		segment_to_remove.queue_free()
 
 	pass
 

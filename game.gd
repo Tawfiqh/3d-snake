@@ -2,6 +2,13 @@ extends Node3D
 
 var _game_over_layer: CanvasLayer
 var moving = true
+var trail_length = 90
+const GAME_BOX_SIZE = 50
+const SPAWN_RADIUS = (GAME_BOX_SIZE - 10)/2
+const fruit_scene : PackedScene = preload("res://fruit.tscn")
+
+func _ready():
+	new_game()
 
 func game_over() -> void:
 	print("Game over")
@@ -14,8 +21,17 @@ func _show_game_over_overlay() -> void:
 		print("Showing game over overlay..")
 		_game_over_layer.visible = true
 
+func new_game():
+	moving = true
+	spawn_fruit()
 
 func _on_restart_pressed() -> void:
-	moving = true
 	get_tree().reload_current_scene()
 	print("Game scene reloaded")
+
+func spawn_fruit():
+	print("spawning fruit")
+	var fruit_pos = Vector3(randi_range(SPAWN_RADIUS, -SPAWN_RADIUS), randi_range(SPAWN_RADIUS, -SPAWN_RADIUS), randi_range(SPAWN_RADIUS, -SPAWN_RADIUS))
+	var new_fruit = fruit_scene.instantiate()
+	new_fruit.position = fruit_pos
+	get_tree().current_scene.add_child(new_fruit)

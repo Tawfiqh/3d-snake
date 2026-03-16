@@ -4,6 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://lswxqhelfu0e" path="res://GroundDirtWeedsPatchy004_COL_2K.jpg" id="2_e2o6t"]
 [ext_resource type="Script" uid="uid://cncv41s21bmci" path="res://game_over_layer.gd" id="2_fc0e3"]
 [ext_resource type="Script" uid="uid://dnkxm2luqm2fk" path="res://game.gd" id="3_0f1p8"]
+[ext_resource type="Script" uid="uid://cdjjhrqcjn73m" path="res://bounding_box.gd" id="4_ryrav"]
+[ext_resource type="PackedScene" uid="uid://b1srmg3hen7gt" path="res://fruit.tscn" id="5_7jktm"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mwb40"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -90,8 +92,9 @@ shadow_enabled = true
 
 [node name="BoundingBox" type="StaticBody3D" parent="." unique_id=236090584]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.033688664, -0.041425228)
+script = ExtResource("4_ryrav")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="BoundingBox" unique_id=368274301]
+[node name="mesh" type="MeshInstance3D" parent="BoundingBox" unique_id=368274301]
 mesh = SubResource("BoxMesh_mwb40")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BoundingBox" unique_id=1870263460]
@@ -100,5 +103,8 @@ shape = SubResource("ConcavePolygonShape3D_mwb40")
 [node name="CeilingDonut" type="MeshInstance3D" parent="." unique_id=310711844]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 49.247425, 0)
 mesh = SubResource("TorusMesh_e2o6t")
+
+[node name="fruit" parent="." unique_id=1194933215 instance=ExtResource("5_7jktm")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, -4.798561)
 
 [connection signal="pressed" from="GameOverLayer/Panel/VBoxContainer/RestartButton" to="." method="_on_restart_pressed"]

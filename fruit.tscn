@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://b1srmg3hen7gt"]
+
+[ext_resource type="Script" uid="uid://cp6rj86ng8g4g" path="res://fruit.gd" id="1_dajs1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_frgtl"]
+albedo_color = Color(1, 0.34901962, 1, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_fc0e3"]
+material = SubResource("StandardMaterial3D_frgtl")
+inner_radius = 0.79
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_frgtl"]
+height = 0.1
+radius = 1.0
+
+[node name="fruit" type="Node3D" unique_id=1194933215]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+script = ExtResource("1_dajs1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1349075243]
+mesh = SubResource("TorusMesh_fc0e3")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=794027012]
+collision_layer = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1712889217]
+shape = SubResource("CylinderShape3D_frgtl")
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
