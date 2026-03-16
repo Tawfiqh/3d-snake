@@ -8,6 +8,8 @@ var SCORE = 0
 const SPAWN_RADIUS = (GAME_BOX_SIZE - 20) / 2
 const SNAKE_GIRTH = 20.0
 const fruit_scene: PackedScene = preload("res://fruit.tscn")
+const INITIAL_SPEED = 6.0
+const SPEED_INCREMENT = 10.0
 
 func _ready():
 	new_game()

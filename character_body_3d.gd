@@ -3,7 +3,7 @@ class_name Player
 
 @export var trailScene: PackedScene
 
-const SPEED = 6.0
+var SPEED = Game.INITIAL_SPEED
 const STEERING_POWER = 5.0
 const TRAIL_REFRESH_RATE: int = 1
 
@@ -24,6 +24,7 @@ func _ready():
 
 func _process(_delta: float) -> void:
 	_update_mouse_mode()
+	_process_boost(_delta)
 
 # This is called on every physics tick
 func _physics_process(delta: float) -> void:
@@ -84,6 +85,19 @@ func generate_trail() -> void:
 		segment_to_remove.queue_free()
 
 	pass
+
+
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# Processing the boost
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+func _process_boost(delta: float) -> void:
+	if Input.is_action_pressed("ui_boost"):
+		SPEED += Game.SPEED_INCREMENT * delta
+		Game.SCORE += Game.SPEED_INCREMENT * delta
+		print("Boosted! Speed: ", SPEED)
+	else:
+		SPEED = 6.0
 
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 # Collision Detection

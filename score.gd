@@ -5,7 +5,9 @@ extends RichTextLabel
 func _ready() -> void:
 	pass # Replace with function body.
 
+func current_score() -> int:
+	return int(Game.SCORE)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	text = "%s"%[Game.SCORE]
+	text = "Score: %d" % [current_score()]

@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://lswxqhelfu0e" path="res://GroundDirtWeedsPatchy004_COL_2K.jpg" id="2_e2o6t"]
 [ext_resource type="Script" uid="uid://cncv41s21bmci" path="res://game_over_layer.gd" id="2_fc0e3"]
 [ext_resource type="Script" uid="uid://dnkxm2luqm2fk" path="res://game.gd" id="3_0f1p8"]
-[ext_resource type="Script" path="res://score.gd" id="3_eow3j"]
+[ext_resource type="Script" uid="uid://b6lilk4y4rsmr" path="res://score.gd" id="3_eow3j"]
 [ext_resource type="Script" uid="uid://cdjjhrqcjn73m" path="res://bounding_box.gd" id="4_ryrav"]
 [ext_resource type="PackedScene" uid="uid://b1srmg3hen7gt" path="res://fruit.tscn" id="5_7jktm"]
 
@@ -90,21 +90,16 @@ text = "Restart"
 [node name="score_panel" type="Panel" parent="CanvasLayer" unique_id=960030436]
 offset_left = 23.0
 offset_top = 23.0
-offset_right = 158.0
-offset_bottom = 79.0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/score_panel" unique_id=1339053479]
-layout_mode = 0
-offset_right = 55.0
-offset_bottom = 57.0
-text = "Score:"
+offset_right = 115.0
+offset_bottom = 63.0
 
 [node name="score" type="RichTextLabel" parent="CanvasLayer/score_panel" unique_id=1772214534]
 layout_mode = 0
-offset_left = 57.0
-offset_top = 5.0
-offset_right = 97.0
-offset_bottom = 45.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 104.0
+offset_bottom = 48.0
+text = "Score: 0"
 script = ExtResource("3_eow3j")
 
 [node name="CharacterBody3D" parent="." unique_id=288842577 instance=ExtResource("1_80nbo")]
