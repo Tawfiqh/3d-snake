@@ -51,19 +51,23 @@ func generate_trail() -> void:
 
 # This is called on every physics tick
 func _physics_process(delta: float) -> void:
-	# print(Game.moving)
 	if not Game.moving: return
+
 	frame_count += 1
 	if frame_count % TRAIL_REFRESH_RATE == 0:
 		generate_trail()
 		frame_count = 0
+
+
 	# Blend keyboard steering with mouse steering.
 	var keyboard_input := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	var steer_input := keyboard_input + mouse_turn_input
+
 	if steer_input.length() > 1.0:
 		steer_input = steer_input.normalized()
 	if steer_input != Vector2.ZERO:
-		rotation -= Vector3(steer_input.y, steer_input.x, 0) * STEERING_POWER * delta
+		# rotation -= Vector3(steer_input.y, steer_input.x, 0) * STEERING_POWER * delta
+		_apply_local_steering(steer_input, delta)
 	mouse_turn_input = Vector2.ZERO
 	velocity = global_transform.basis.z * SPEED
 	move_and_slide()
@@ -101,3 +105,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 			mouse_turn_input = event.relative * mouse_sensitivity
 			mouse_turn_input = mouse_turn_input.limit_length(1.0)
+
+
+func _apply_local_steering(steer_input: Vector2, delta: float) -> void:
+	var pitch_amount := -steer_input.y * STEERING_POWER * delta
+	var yaw_amount := -steer_input.x * STEERING_POWER * delta
+	rotate_object_local(Vector3.RIGHT, pitch_amount)
+	rotate_object_local(Vector3.UP, yaw_amount)

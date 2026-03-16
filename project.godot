@@ -23,6 +23,9 @@ Game="*uid://dnkxm2luqm2fk"
 
 window/size/viewport_width=1600
 window/size/viewport_height=900
+window/size/resizable=false
+window/stretch/aspect="expand"
+window/stretch/scale=2.01
 
 [input]
 

@@ -4,9 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://lswxqhelfu0e" path="res://GroundDirtWeedsPatchy004_COL_2K.jpg" id="2_e2o6t"]
 [ext_resource type="Script" uid="uid://cncv41s21bmci" path="res://game_over_layer.gd" id="2_fc0e3"]
 [ext_resource type="Script" uid="uid://dnkxm2luqm2fk" path="res://game.gd" id="3_0f1p8"]
-[ext_resource type="Script" uid="uid://b6lilk4y4rsmr" path="res://score.gd" id="3_eow3j"]
+[ext_resource type="Script" path="res://score.gd" id="3_eow3j"]
 [ext_resource type="Script" uid="uid://cdjjhrqcjn73m" path="res://bounding_box.gd" id="4_ryrav"]
 [ext_resource type="PackedScene" uid="uid://b1srmg3hen7gt" path="res://fruit.tscn" id="5_7jktm"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_eow3j"]
+font_size = 38
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mwb40"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -58,16 +61,19 @@ anchor_bottom = 0.5
 offset_left = -130.0
 offset_top = -80.0
 offset_right = 130.0
-offset_bottom = 80.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GameOverLayer/Panel" unique_id=534389505]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 18.0
-offset_top = 18.0
+offset_top = -2.5
 offset_right = -18.0
-offset_bottom = -18.0
+offset_bottom = -3.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 16
@@ -75,6 +81,7 @@ theme_override_constants/separation = 16
 [node name="Title" type="Label" parent="GameOverLayer/Panel/VBoxContainer" unique_id=1256889135]
 layout_mode = 2
 text = "Game Over"
+label_settings = SubResource("LabelSettings_eow3j")
 horizontal_alignment = 1
 
 [node name="RestartButton" type="Button" parent="GameOverLayer/Panel/VBoxContainer" unique_id=897042391]

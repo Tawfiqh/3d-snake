@@ -5,9 +5,9 @@ var moving = true
 var trail_length = 90
 const GAME_BOX_SIZE = 50.0
 var SCORE = 0
-const SPAWN_RADIUS = (GAME_BOX_SIZE - 20)/2
+const SPAWN_RADIUS = (GAME_BOX_SIZE - 20) / 2
 const SNAKE_GIRTH = 20.0
-const fruit_scene : PackedScene = preload("res://fruit.tscn")
+const fruit_scene: PackedScene = preload("res://fruit.tscn")
 
 func _ready():
 	new_game()
@@ -22,6 +22,7 @@ func _show_game_over_overlay() -> void:
 	if _game_over_layer:
 		print("Showing game over overlay..")
 		_game_over_layer.visible = true
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func new_game():
 	moving = true
@@ -30,6 +31,12 @@ func new_game():
 func _on_restart_pressed() -> void:
 	get_tree().reload_current_scene()
 	print("Game scene reloaded")
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not _game_over_layer or not _game_over_layer.visible:
+		return
+	if event.is_action_pressed("ui_accept"):
+		_on_restart_pressed()
 
 func spawn_fruit():
 	print("spawning fruit")
