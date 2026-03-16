@@ -1,10 +1,11 @@
 extends Node3D
 
-@onready var _game_over_layer: CanvasLayer
-
+var _game_over_layer: CanvasLayer
+var moving = true
 
 func game_over() -> void:
 	print("Game over")
+	moving = false
 	_show_game_over_overlay()
 
 
@@ -15,5 +16,6 @@ func _show_game_over_overlay() -> void:
 
 
 func _on_restart_pressed() -> void:
+	moving = true
 	get_tree().reload_current_scene()
 	print("Game scene reloaded")

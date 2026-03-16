@@ -1,11 +1,19 @@
 [gd_scene format=3 uid="uid://cfsrwxexwc4xo"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_at0vl"]
-radius = 0.25
-height = 1.0
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_at0vl"]
+albedo_color = Color(1, 0.25882354, 0, 1)
 
-[node name="Node3D" type="Node3D" unique_id=1489209880]
+[sub_resource type="SphereMesh" id="SphereMesh_xjhlx"]
+material = SubResource("StandardMaterial3D_at0vl")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_at0vl"]
+
+[node name="Node3D" type="Area3D" unique_id=301431479]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1635115650]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
-mesh = SubResource("CapsuleMesh_at0vl")
+mesh = SubResource("SphereMesh_xjhlx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1135131286]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+shape = SubResource("SphereShape3D_at0vl")

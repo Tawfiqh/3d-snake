@@ -1,21 +1,27 @@
 extends CharacterBody3D
+class_name Player
 
 @export var trailScene: PackedScene
 
 const SPEED = 5.0
 const STEERING_POWER = 2.0
+const TRAIL_REFRESH_RATE: int = 3
 
 var frame_count: int = 0
 
-const TRAIL_OFFSET: float = 3.0
+const TRAIL_OFFSET: float = 0.3
+
+func _ready():
+	print("player ready")
+	Game.moving = true
 
 func generate_trail() -> void:
-	print("Generating trail segment")
+	if not Game.moving: return
 	# Create a new trail segment at the current position
 	var trail_segment = trailScene.instantiate()
 	# var local_position = position #- (Vector3(0, 0, 1) * TRAIL_OFFSET)
 	# trail_segment.global_position = to_global(local_position)
-	trail_segment.global_position = global_position
+	trail_segment.position = position - global_transform.basis.z*TRAIL_OFFSET
 	trail_segment.rotation = rotation
 
 	# Add the trail segment to the trail array
@@ -26,12 +32,13 @@ func generate_trail() -> void:
 	pass
 
 
-const trail_refresh_rate: int = 10
 
 # This is called on every physics tick
 func _physics_process(delta: float) -> void:
+	# print(Game.moving)
+	if not Game.moving: return
 	frame_count += 1
-	if frame_count % trail_refresh_rate == 0:
+	if frame_count % TRAIL_REFRESH_RATE == 0:
 		generate_trail()
 		frame_count = 0
 	# Get the input direction and handle the movement/deceleration.
@@ -40,17 +47,17 @@ func _physics_process(delta: float) -> void:
 	if input_dir:
 		rotation -= Vector3(input_dir.y, input_dir.x, 0) * STEERING_POWER * delta
 	velocity = global_transform.basis.z * SPEED
-	
 	move_and_slide()
-	var collision: KinematicCollision3D = get_last_slide_collision()
-	if collision:
-		handle_collision(collision)
 
 
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 # Collision Detection
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-func handle_collision(collision: KinematicCollision3D) -> void:
-	var collider = collision.get_collider()
-	print("Collision detected with: ", collision.get_collider().name)
+
+
+func _on_tongue_body_entered(body: Node3D) -> void:
+	print("ouch!")
+	Game.game_over()
+func _on_tongue_area_entered(body: Node3D) -> void:
+	print("ouch!")
 	Game.game_over()

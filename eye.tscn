@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://dnxb0tkmytvax"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c6rq6"]
+albedo_color = Color(0.63729036, 0.6795002, 0.8528872, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_05vdx"]
+material = SubResource("StandardMaterial3D_c6rq6")
+radius = 0.1
+height = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1t7xr"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_l1n7h"]
+material = SubResource("StandardMaterial3D_1t7xr")
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.01
+
+[node name="MeshInstance3D" type="MeshInstance3D" unique_id=1906423097]
+mesh = SubResource("SphereMesh_05vdx")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="." unique_id=1431948334]
+transform = Transform3D(1, 0, 0, 0, 0.9586808, -0.28448388, 0, 0.28448388, 0.9586808, -0.005753204, 0.09214693, 0.032772064)
+mesh = SubResource("CylinderMesh_l1n7h")
