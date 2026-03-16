@@ -8,15 +8,22 @@ const STEERING_POWER = 5.0
 const TRAIL_REFRESH_RATE: int = 1
 
 var frame_count: int = 0
+var mouse_sensitivity := 0.02
+var mouse_turn_input := Vector2.ZERO
 
 const TRAIL_OFFSET: float = 0.3
-var SNAKE_SCALE = Vector3(Game.SNAKE_GIRTH/10, Game.SNAKE_GIRTH/10, Game.SNAKE_GIRTH/10)
+var SNAKE_SCALE = Vector3(Game.SNAKE_GIRTH / 10, Game.SNAKE_GIRTH / 10, Game.SNAKE_GIRTH / 10)
 var trail_segments = []
 
 func _ready():
 	print("player ready")
 	Game.moving = true
 	scale = SNAKE_SCALE
+	_capture_mouse_onload()
+
+
+func _process(_delta: float) -> void:
+	_update_mouse_mode()
 
 func generate_trail() -> void:
 	if not Game.moving: return
@@ -26,7 +33,7 @@ func generate_trail() -> void:
 	# var local_position = position #- (Vector3(0, 0, 1) * TRAIL_OFFSET)
 	# trail_segment.global_position = to_global(local_position)
 	trail_segment.scale = SNAKE_SCALE
-	trail_segment.position = position - global_transform.basis.z*TRAIL_OFFSET
+	trail_segment.position = position - global_transform.basis.z * TRAIL_OFFSET
 	trail_segment.rotation = rotation
 
 	# Add the trail segment to the trail array
@@ -34,13 +41,12 @@ func generate_trail() -> void:
 	trail_segments.append(trail_segment)
 
 	# Update the trail array - and remove any segments that are too old
-	if(trail_segments.size() > Game.trail_length):
-		var segment_to_remove : Node3D = trail_segments.pop_front()
+	if (trail_segments.size() > Game.trail_length):
+		var segment_to_remove: Node3D = trail_segments.pop_front()
 		segment_to_remove.hide()
 		segment_to_remove.queue_free()
 
 	pass
-
 
 
 # This is called on every physics tick
@@ -51,11 +57,14 @@ func _physics_process(delta: float) -> void:
 	if frame_count % TRAIL_REFRESH_RATE == 0:
 		generate_trail()
 		frame_count = 0
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	if input_dir:
-		rotation -= Vector3(input_dir.y, input_dir.x, 0) * STEERING_POWER * delta
+	# Blend keyboard steering with mouse steering.
+	var keyboard_input := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	var steer_input := keyboard_input + mouse_turn_input
+	if steer_input.length() > 1.0:
+		steer_input = steer_input.normalized()
+	if steer_input != Vector2.ZERO:
+		rotation -= Vector3(steer_input.y, steer_input.x, 0) * STEERING_POWER * delta
+	mouse_turn_input = Vector2.ZERO
 	velocity = global_transform.basis.z * SPEED
 	move_and_slide()
 
@@ -72,3 +81,23 @@ func _on_tongue_body_entered(body: Node3D) -> void:
 func _on_tongue_area_entered(body: Node3D) -> void:
 	print("ouch!")
 	Game.game_over()
+
+
+func _capture_mouse_onload() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+
+func _update_mouse_mode() -> void:
+	if Input.is_action_just_pressed("ui_cancel"):
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.pressed and Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+	if event is InputEventMouseMotion:
+		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+			mouse_turn_input = event.relative * mouse_sensitivity
+			mouse_turn_input = mouse_turn_input.limit_length(1.0)
