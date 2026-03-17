@@ -6,7 +6,7 @@ var _paused_overlay_layer: ColorRect
 
 var moving = true
 var trail_length = 90
-const GAME_BOX_SIZE = 1500.0
+const GAME_BOX_SIZE = 50.0
 var SCORE = 0
 const SPAWN_RADIUS = (GAME_BOX_SIZE - 20) / 2
 const SNAKE_GIRTH = 20.0

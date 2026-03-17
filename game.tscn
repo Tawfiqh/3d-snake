@@ -178,5 +178,5 @@ shape = SubResource("ConcavePolygonShape3D_mwb40")
 [node name="fruit" parent="." unique_id=1194933215 instance=ExtResource("5_7jktm")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, -4.798561)
 
-[connection signal="pressed" from="GameOverLayer/Panel/VBoxContainer/RestartButton" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="GameOverLayer/Panel/VBoxContainer/RestartButton" to="GameOverLayer" method="_on_restart_pressed"]
 [connection signal="pressed" from="CanvasLayer/PauseButton" to="CanvasLayer/PauseOverlay" method="_on_pause_button_pressed"]

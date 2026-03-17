@@ -29,7 +29,6 @@ func _process(_delta: float) -> void:
 # This is called on every physics tick
 func _physics_process(delta: float) -> void:
 	if not Game.moving:
-		print("Player not moving -- Game is paused")
 		return
 
 	frame_count += 1
