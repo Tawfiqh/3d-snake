@@ -24,4 +24,6 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 
 func _on_area_3d_area_entered(area: Area3D) -> void:
 	print("area entered fruit -- area: ", area.name)
-	eat_fruit()
+	if area.name == "tongue":
+		print("tongue entered fruit")
+		eat_fruit()
