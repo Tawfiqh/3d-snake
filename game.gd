@@ -1,9 +1,12 @@
 extends Node3D
 
 var _game_over_layer: CanvasLayer
+var _paused: bool = false
+var _paused_overlay_layer: ColorRect
+
 var moving = true
 var trail_length = 90
-const GAME_BOX_SIZE = 50.0
+const GAME_BOX_SIZE = 1500.0
 var SCORE = 0
 const SPAWN_RADIUS = (GAME_BOX_SIZE - 20) / 2
 const SNAKE_GIRTH = 20.0
@@ -33,6 +36,30 @@ func new_game():
 func _on_restart_pressed() -> void:
 	get_tree().reload_current_scene()
 	print("Game scene reloaded")
+
+
+func _on_pause_button_pressed() -> void:
+	print("Pause button pressed -- paused: ", _paused)
+	if !_paused:
+		_pause_game()
+	else:
+		_resume_game()
+
+
+func _pause_game() -> void:
+	print("Pausing game..")
+	_paused = true
+	moving = false
+	if _paused_overlay_layer:
+		_paused_overlay_layer.visible = true
+
+		
+func _resume_game() -> void:
+	_paused = false
+	moving = true
+	if _paused_overlay_layer:
+		_paused_overlay_layer.visible = false
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not _game_over_layer or not _game_over_layer.visible:

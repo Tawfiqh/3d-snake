@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://cncv41s21bmci" path="res://game_over_layer.gd" id="2_fc0e3"]
 [ext_resource type="Script" uid="uid://dnkxm2luqm2fk" path="res://game.gd" id="3_0f1p8"]
 [ext_resource type="Script" uid="uid://b6lilk4y4rsmr" path="res://score.gd" id="3_eow3j"]
+[ext_resource type="Script" uid="uid://7pxjjer0n5ix" path="res://pause_overlay.gd" id="4_mfdv2"]
 [ext_resource type="Script" uid="uid://cdjjhrqcjn73m" path="res://bounding_box.gd" id="4_ryrav"]
 [ext_resource type="PackedScene" uid="uid://b1srmg3hen7gt" path="res://fruit.tscn" id="5_7jktm"]
 [ext_resource type="Texture2D" uid="uid://cfo1gla75pcri" path="res://Textures/GroundDirtWeedsPatchy004_COL_2K.jpg" id="6_j5wjh"]
@@ -53,6 +54,7 @@ data = PackedVector3Array(50, 50, 50, -50, 50, 50, -50, -50, 50, 50, -50, 50, 50
 script = ExtResource("3_0f1p8")
 
 [node name="GameOverLayer" type="CanvasLayer" parent="." unique_id=1611949410]
+process_mode = 3
 visible = false
 script = ExtResource("2_fc0e3")
 
@@ -117,6 +119,31 @@ offset_bottom = 48.0
 text = "Score: 0"
 script = ExtResource("3_eow3j")
 
+[node name="PauseButton" type="Button" parent="CanvasLayer" unique_id=146310114]
+z_index = 5
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -113.0
+offset_top = 23.0
+offset_right = -23.0
+offset_bottom = 63.0
+grow_horizontal = 0
+text = "Pause"
+
+[node name="PauseOverlay" type="ColorRect" parent="CanvasLayer/PauseButton" unique_id=918839372]
+visible = false
+z_index = 1
+layout_mode = 0
+offset_left = -2295.0
+offset_top = 46.0
+offset_right = 92.0
+offset_bottom = 1490.0
+mouse_filter = 1
+mouse_behavior_recursive = 1
+color = Color(1, 0.63, 0.63, 0.20392157)
+script = ExtResource("4_mfdv2")
+
 [node name="CharacterBody3D" parent="." unique_id=288842577 instance=ExtResource("1_80nbo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.990242, 0)
 
@@ -141,3 +168,4 @@ shape = SubResource("ConcavePolygonShape3D_mwb40")
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, -4.798561)
 
 [connection signal="pressed" from="GameOverLayer/Panel/VBoxContainer/RestartButton" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseButton" to="." method="_on_pause_button_pressed"]
