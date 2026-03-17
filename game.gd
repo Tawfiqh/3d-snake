@@ -39,7 +39,6 @@ func _on_restart_pressed() -> void:
 
 
 func _on_pause_button_pressed() -> void:
-	print("Pause button pressed -- paused: ", _paused)
 	if !_paused:
 		_pause_game()
 	else:
@@ -47,7 +46,7 @@ func _on_pause_button_pressed() -> void:
 
 
 func _pause_game() -> void:
-	print("Pausing game..")
+	print("Pausing game")
 	_paused = true
 	moving = false
 	if _paused_overlay_layer:

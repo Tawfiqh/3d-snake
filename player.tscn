@@ -49,7 +49,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.24733564, 0.3503695, 0.382
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2532025, 0.3503695, 0.36658192)
 
 [node name="tongue" type="Area3D" parent="." unique_id=546540404]
-transform = Transform3D(2, 0, 0, 0, 4, 0, 0, 0, 2, 0, 0, 0.66798776)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0.66798776)
 script = ExtResource("4_hqtel")
 
 [node name="tongue_mesh" type="MeshInstance3D" parent="tongue" unique_id=1190008611]
