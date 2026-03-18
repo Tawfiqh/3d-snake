@@ -108,11 +108,10 @@ text = "Restart"
 process_mode = 3
 
 [node name="PauseOverlay" type="ColorRect" parent="CanvasLayer" unique_id=918839372]
-z_index = 1
 visible = false
+z_index = 1
 offset_right = 2048.0
 offset_bottom = 1152.0
-mouse_filter = 0
 color = Color(0.19, 0.133, 0.13394998, 0.85490197)
 script = ExtResource("4_mfdv2")
 
@@ -171,6 +170,7 @@ grow_horizontal = 0
 text = "Pause"
 
 [node name="TouchControls" type="Control" parent="CanvasLayer" unique_id=462343455]
+modulate = Color(1, 1, 1, 0.45882353)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -196,6 +196,7 @@ layout_mode = 0
 offset_left = 325.0
 offset_right = 675.0
 offset_bottom = 350.0
+theme_override_font_sizes/font_size = 75
 text = "Up"
 
 [node name="Left" type="Button" parent="CanvasLayer/TouchControls/DPad" unique_id=886934382]
@@ -204,6 +205,7 @@ offset_left = 25.0
 offset_top = 225.0
 offset_right = 375.0
 offset_bottom = 575.0
+theme_override_font_sizes/font_size = 75
 text = "Left"
 
 [node name="Right" type="Button" parent="CanvasLayer/TouchControls/DPad" unique_id=630365314]
@@ -212,6 +214,7 @@ offset_left = 625.0
 offset_top = 225.0
 offset_right = 975.0
 offset_bottom = 575.0
+theme_override_font_sizes/font_size = 75
 text = "Right"
 
 [node name="Down" type="Button" parent="CanvasLayer/TouchControls/DPad" unique_id=1567947882]
@@ -220,6 +223,7 @@ offset_left = 325.0
 offset_top = 450.0
 offset_right = 675.0
 offset_bottom = 800.0
+theme_override_font_sizes/font_size = 75
 text = "Down"
 
 [node name="Boost" type="Button" parent="CanvasLayer/TouchControls" unique_id=1915241872]
@@ -234,6 +238,7 @@ offset_right = -32.0
 offset_bottom = -32.0
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_font_sizes/font_size = 75
 text = "Boost"
 
 [node name="CharacterBody3D" parent="." unique_id=288842577 instance=ExtResource("1_80nbo")]
