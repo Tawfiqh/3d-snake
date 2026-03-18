@@ -3,11 +3,21 @@ extends Control
 const MOBILE_FEATURE_NAME := "mobile"
 
 var _action_by_button: Dictionary = {}
+var _touch_device_available: bool = false
 
 
 func _ready() -> void:
-	visible = OS.has_feature(MOBILE_FEATURE_NAME) or DisplayServer.is_touchscreen_available()
+	_touch_device_available = OS.has_feature(MOBILE_FEATURE_NAME) or DisplayServer.is_touchscreen_available()
+	visible = _touch_device_available and Game.moving
 	_bind_button_actions()
+
+
+func _process(_delta: float) -> void:
+	var should_show := _touch_device_available and Game.moving
+	if visible != should_show:
+		visible = should_show
+		if not visible:
+			_release_all_actions()
 
 
 func _exit_tree() -> void:

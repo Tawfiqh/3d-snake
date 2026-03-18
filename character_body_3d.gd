@@ -56,7 +56,10 @@ func _physics_process(delta: float) -> void:
 
 
 func _apply_local_steering(steer_input: Vector2, delta: float) -> void:
-	var pitch_amount := -steer_input.y * STEERING_POWER * delta
+	var effective_y_input := steer_input.y
+	if Game.invert_y_axis:
+		effective_y_input *= -1.0
+	var pitch_amount := -effective_y_input * STEERING_POWER * delta
 	var yaw_amount := -steer_input.x * STEERING_POWER * delta
 	rotate_object_local(Vector3.RIGHT, pitch_amount)
 	rotate_object_local(Vector3.UP, yaw_amount)

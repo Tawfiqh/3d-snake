@@ -109,22 +109,39 @@ process_mode = 3
 
 [node name="PauseOverlay" type="ColorRect" parent="CanvasLayer" unique_id=918839372]
 z_index = 1
+visible = false
 offset_right = 2048.0
 offset_bottom = 1152.0
-mouse_filter = 2
-mouse_behavior_recursive = 1
-color = Color(1, 0.63, 0.63, 0.20392157)
+mouse_filter = 0
+color = Color(0.19, 0.133, 0.13394998, 0.85490197)
 script = ExtResource("4_mfdv2")
 
 [node name="Label" type="Label" parent="CanvasLayer/PauseOverlay" unique_id=278721281]
 layout_mode = 0
 offset_top = 375.0
 offset_right = 2048.0
-offset_bottom = 775.0
+offset_bottom = 668.0
 text = "Paused"
 label_settings = SubResource("LabelSettings_hve3p")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="InvertYCheckButton" type="CheckButton" parent="CanvasLayer/PauseOverlay" unique_id=1571296028]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -122.71997
+offset_top = 88.76001
+offset_right = 42.325073
+offset_bottom = 134.495
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.51, 1.51)
+action_mode = 0
+text = "Invert Y-Axis"
 
 [node name="score_panel" type="Panel" parent="CanvasLayer" unique_id=960030436]
 offset_left = 23.0
@@ -243,4 +260,5 @@ shape = SubResource("ConcavePolygonShape3D_mwb40")
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, -4.798561)
 
 [connection signal="pressed" from="GameOverLayer/Panel/VBoxContainer/RestartButton" to="GameOverLayer" method="_on_restart_pressed"]
+[connection signal="toggled" from="CanvasLayer/PauseOverlay/InvertYCheckButton" to="CanvasLayer/PauseOverlay" method="_on_invert_y_check_button_toggled"]
 [connection signal="pressed" from="CanvasLayer/PauseButton" to="CanvasLayer/PauseOverlay" method="_on_pause_button_pressed"]
