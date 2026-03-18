@@ -42,6 +42,8 @@ func _on_restart_pressed() -> void:
 
 
 func _on_pause_button_pressed() -> void:
+	if _game_over_layer and _game_over_layer.visible:
+		return
 	if !_paused:
 		_pause_game()
 	else:
