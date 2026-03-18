@@ -21,8 +21,8 @@ Game="*uid://dnkxm2luqm2fk"
 
 [display]
 
-window/size/viewport_width=2400
-window/size/viewport_height=1500
+window/size/viewport_width=2048
+window/size/viewport_height=1152
 window/size/resizable=false
 window/stretch/mode="viewport"
 

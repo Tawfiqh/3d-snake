@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://7pxjjer0n5ix" path="res://pause_overlay.gd" id="4_mfdv2"]
 [ext_resource type="Script" uid="uid://cdjjhrqcjn73m" path="res://bounding_box.gd" id="4_ryrav"]
 [ext_resource type="PackedScene" uid="uid://b1srmg3hen7gt" path="res://fruit.tscn" id="5_7jktm"]
+[ext_resource type="Script" uid="uid://rft5hnoy5xx7" path="res://touch_controls.gd" id="6_5nv8u"]
 [ext_resource type="Texture2D" uid="uid://cfo1gla75pcri" path="res://Textures/GroundDirtWeedsPatchy004_COL_2K.jpg" id="6_j5wjh"]
 [ext_resource type="Texture2D" uid="uid://dvpaqohv7o85m" path="res://Textures/GroundDirtWeedsPatchy004_AO_2K.jpg" id="7_hve3p"]
 [ext_resource type="Texture2D" uid="uid://difwso4bqx4dw" path="res://Textures/GroundDirtWeedsPatchy004_NRM_2K.jpg" id="7_vef74"]
@@ -107,12 +108,9 @@ text = "Restart"
 process_mode = 3
 
 [node name="PauseOverlay" type="ColorRect" parent="CanvasLayer" unique_id=918839372]
-visible = false
 z_index = 1
-offset_left = -12.0
-offset_top = -3.0
-offset_right = 2403.0
-offset_bottom = 1509.0
+offset_right = 2048.0
+offset_bottom = 1152.0
 mouse_filter = 2
 mouse_behavior_recursive = 1
 color = Color(1, 0.63, 0.63, 0.20392157)
@@ -120,13 +118,13 @@ script = ExtResource("4_mfdv2")
 
 [node name="Label" type="Label" parent="CanvasLayer/PauseOverlay" unique_id=278721281]
 layout_mode = 0
-offset_left = 12.0
-offset_top = 490.0
-offset_right = 2401.0
-offset_bottom = 923.0
+offset_top = 375.0
+offset_right = 2048.0
+offset_bottom = 775.0
 text = "Paused"
 label_settings = SubResource("LabelSettings_hve3p")
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="score_panel" type="Panel" parent="CanvasLayer" unique_id=960030436]
 offset_left = 23.0
@@ -154,6 +152,72 @@ offset_right = -23.0
 offset_bottom = 63.0
 grow_horizontal = 0
 text = "Pause"
+
+[node name="TouchControls" type="Control" parent="CanvasLayer" unique_id=462343455]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("6_5nv8u")
+
+[node name="DPad" type="Control" parent="CanvasLayer/TouchControls" unique_id=96346276]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = -833.0
+offset_right = 1024.0
+offset_bottom = -32.0
+grow_vertical = 0
+
+[node name="Up" type="Button" parent="CanvasLayer/TouchControls/DPad" unique_id=1437523692]
+layout_mode = 0
+offset_left = 325.0
+offset_right = 675.0
+offset_bottom = 350.0
+text = "Up"
+
+[node name="Left" type="Button" parent="CanvasLayer/TouchControls/DPad" unique_id=886934382]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 225.0
+offset_right = 375.0
+offset_bottom = 575.0
+text = "Left"
+
+[node name="Right" type="Button" parent="CanvasLayer/TouchControls/DPad" unique_id=630365314]
+layout_mode = 0
+offset_left = 625.0
+offset_top = 225.0
+offset_right = 975.0
+offset_bottom = 575.0
+text = "Right"
+
+[node name="Down" type="Button" parent="CanvasLayer/TouchControls/DPad" unique_id=1567947882]
+layout_mode = 0
+offset_left = 325.0
+offset_top = 450.0
+offset_right = 675.0
+offset_bottom = 800.0
+text = "Down"
+
+[node name="Boost" type="Button" parent="CanvasLayer/TouchControls" unique_id=1915241872]
+layout_mode = 0
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -352.0
+offset_top = -288.0
+offset_right = -32.0
+offset_bottom = -32.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Boost"
 
 [node name="CharacterBody3D" parent="." unique_id=288842577 instance=ExtResource("1_80nbo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.990242, 0)

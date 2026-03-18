@@ -10,6 +10,7 @@ const TRAIL_REFRESH_RATE: int = 1
 var frame_count: int = 0
 var mouse_sensitivity := 0.02
 var mouse_turn_input := Vector2.ZERO
+const MOBILE_FEATURE_NAME := "mobile"
 
 const TRAIL_OFFSET: float = 0.3
 var SNAKE_SCALE = Vector3(Game.SNAKE_GIRTH / 10, Game.SNAKE_GIRTH / 10, Game.SNAKE_GIRTH / 10)
@@ -117,10 +118,14 @@ func _on_tongue_area_entered(body: Node3D) -> void:
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 func _capture_mouse_onload() -> void:
+	if OS.has_feature(MOBILE_FEATURE_NAME):
+		return
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
 func _update_mouse_mode() -> void:
+	if OS.has_feature(MOBILE_FEATURE_NAME):
+		return
 	if Input.is_action_just_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 

@@ -1,5 +1,7 @@
 extends Node3D
 
+const MOBILE_FEATURE_NAME := "mobile"
+
 var _game_over_layer: CanvasLayer
 var _paused: bool = false
 var _paused_overlay_layer: ColorRect
@@ -58,7 +60,8 @@ func _resume_game() -> void:
 	moving = true
 	if _paused_overlay_layer:
 		_paused_overlay_layer.visible = false
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	if not OS.has_feature(MOBILE_FEATURE_NAME):
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not _game_over_layer or not _game_over_layer.visible:
